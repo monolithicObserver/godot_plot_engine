@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpmqqk7lnspwr"]
+
+[ext_resource type="Script" uid="uid://dgrvqioe20ecv" path="res://line_plot_2d.gd" id="1_vhy1o"]
+[ext_resource type="Shader" uid="uid://cqckk3sxs2fex" path="res://grid.gdshader" id="3_3p18w"]
+[ext_resource type="Script" uid="uid://c8kmu3pnu8hyx" path="res://plot_body.gd" id="3_xnol5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhy1o"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w24ie"]
+shader = ExtResource("3_3p18w")
+shader_parameter/plot_rect = Vector4(-10, -10, 20, 20)
+shader_parameter/spacing_x = 0.2
+shader_parameter/spacing_y = 0.2
+shader_parameter/line_color = Color(0.91664, 0.91664, 0.91664, 1)
+shader_parameter/axis_color_x = Color(0, 0, 1, 1)
+shader_parameter/axis_color_y = Color(1, 0, 0, 1)
+shader_parameter/axis_width = 0.003
+shader_parameter/line_width = 0.003
+
+[node name="2DLinePlot" type="Control" node_paths=PackedStringArray("plot_rect")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 458.0
+offset_top = 255.0
+offset_right = 881.0
+offset_bottom = 674.0
+script = ExtResource("1_vhy1o")
+plot_rect = NodePath("Frame/PlotBody/PlotRect")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Frame" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="Frame"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="TitleLabel" type="Label" parent="Frame/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2D Line Plot"
+label_settings = SubResource("LabelSettings_vhy1o")
+
+[node name="Button" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button2" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button3" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PlotBody" type="Control" parent="Frame" node_paths=PackedStringArray("plot_rect")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_xnol5")
+plot_rect = NodePath("PlotRect")
+
+[node name="PlotRect" type="ColorRect" parent="Frame/PlotBody"]
+material = SubResource("ShaderMaterial_w24ie")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="resized" from="Frame/PlotBody" to="." method="_on_plot_body_resized"]
