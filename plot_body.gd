@@ -1,5 +1,7 @@
 extends Control
 
+signal panned
+
 # Zoom parameters
 var zoom: float = 1.0
 var zoom_step: float = 0.1
@@ -30,6 +32,7 @@ func _gui_input(event):
 	if event is InputEventMouseMotion and is_panning:
 		var delta = event.position - pan_start
 		plot_rect.position += delta
+		emit_signal("panned")
 		pan_start = event.position
 		_limit_pos()
 
@@ -54,3 +57,12 @@ func _limit_pos()-> void:
 	
 	plot_rect.position.x = max(-size.x * (zoom-1),plot_rect.position.x)
 	plot_rect.position.y = max(-size.y * (zoom-1),plot_rect.position.y)
+
+
+func _on_reset_button_up() -> void:
+	plot_rect.position = Vector2.ZERO
+	#plot_rect.scale = plot_rect.scale * factor
+	plot_rect.size = self.size
+	zoom = 1.0
+	
+	emit_signal("resized")
