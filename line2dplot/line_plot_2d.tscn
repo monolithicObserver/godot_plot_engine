@@ -1,0 +1,203 @@
+[gd_scene load_steps=10 format=3 uid="uid://dpmqqk7lnspwr"]
+
+[ext_resource type="Script" uid="uid://dgrvqioe20ecv" path="res://line2dplot/line_plot_2d.gd" id="1_vhy1o"]
+[ext_resource type="Shader" uid="uid://cqckk3sxs2fex" path="res://line2dplot/grid.gdshader" id="3_3p18w"]
+[ext_resource type="Script" uid="uid://c8kmu3pnu8hyx" path="res://line2dplot/plot_body.gd" id="3_xnol5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xnol5"]
+font_size = 13
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vhy1o"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w24ie"]
+resource_local_to_scene = true
+shader = ExtResource("3_3p18w")
+shader_parameter/plot_rect = Vector4(-10, -10, 20, 20)
+shader_parameter/plot_size = Vector2(487, 460)
+shader_parameter/spacing_x = 1.0
+shader_parameter/spacing_y = 1.0
+shader_parameter/line_color = Color(0.91664, 0.91664, 0.91664, 1)
+shader_parameter/axis_color_x = Color(0, 0, 1, 1)
+shader_parameter/axis_color_y = Color(1, 0, 0, 1)
+shader_parameter/axis_width = 1.0
+shader_parameter/line_width = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnol5"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3p18w"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p18w"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[node name="2DLinePlot" type="Control" node_paths=PackedStringArray("plot_rect", "plot_body", "x_axis_labels", "y_axis_labels", "data_lines", "coord_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vhy1o")
+plot_rect = NodePath("Frame/Control/PlotBody/PlotRect")
+plot_body = NodePath("Frame/Control/PlotBody")
+x_axis_labels = NodePath("Frame/Control/XLabels")
+y_axis_labels = NodePath("Frame/Control/YLabels")
+data_lines = NodePath("Frame/Control/PlotBody/PlotRect/DataLines")
+coord_label = NodePath("Frame/Control/PlotBody/CoordLabel")
+tick_label_settings = SubResource("LabelSettings_xnol5")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Frame" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBar" type="HBoxContainer" parent="Frame"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="TitleLabel" type="Label" parent="Frame/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2D Line Plot"
+label_settings = SubResource("LabelSettings_vhy1o")
+
+[node name="Reset" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button2" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button3" type="Button" parent="Frame/TitleBar"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Control" type="GridContainer" parent="Frame"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="YLabels" type="Control" parent="Frame/Control"]
+clip_contents = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="PlotBody" type="Control" parent="Frame/Control" node_paths=PackedStringArray("plot_rect")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_xnol5")
+plot_rect = NodePath("PlotRect")
+
+[node name="PlotRect" type="ColorRect" parent="Frame/Control/PlotBody"]
+material = SubResource("ShaderMaterial_w24ie")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="AxisLabels" type="Control" parent="Frame/Control/PlotBody/PlotRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DataLines" type="Control" parent="Frame/Control/PlotBody/PlotRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RectOverlay" type="Panel" parent="Frame/Control/PlotBody"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xnol5")
+
+[node name="CoordLabel" type="Label" parent="Frame/Control/PlotBody"]
+custom_minimum_size = Vector2(120, 25)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 20.0
+grow_horizontal = 0
+label_settings = SubResource("LabelSettings_3p18w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoordTint" type="Panel" parent="Frame/Control/PlotBody/CoordLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3p18w")
+
+[node name="Corner" type="Control" parent="Frame/Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="XLabels" type="Control" parent="Frame/Control"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[connection signal="button_up" from="Frame/TitleBar/Reset" to="Frame/Control/PlotBody" method="_on_reset_button_up"]
+[connection signal="mouse_entered" from="Frame/Control/PlotBody" to="." method="_on_plot_body_mouse_entered"]
+[connection signal="mouse_exited" from="Frame/Control/PlotBody" to="." method="_on_plot_body_mouse_exited"]
+[connection signal="panned" from="Frame/Control/PlotBody" to="." method="_on_plot_body_panned"]
+[connection signal="resized" from="Frame/Control/PlotBody" to="." method="_on_plot_body_resized"]

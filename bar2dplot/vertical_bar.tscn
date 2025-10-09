@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://dirv20ohydaib"]
+
+[ext_resource type="Script" uid="uid://cokh0tt3olsp4" path="res://bar2dplot/vertical_bar.gd" id="1_oilaj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oilaj"]
+resource_local_to_scene = true
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2cj0"]
+resource_local_to_scene = true
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_j2cj0"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oilaj"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="vertical_bar" type="ProgressBar" node_paths=PackedStringArray("bar_value_label", "bar_name_label")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+fill_mode = 3
+show_percentage = false
+script = ExtResource("1_oilaj")
+bar_value_label = NodePath("BarValue")
+bar_name_label = NodePath("NameRef/BarName")
+background_style = SubResource("StyleBoxFlat_oilaj")
+fill_stye = SubResource("StyleBoxFlat_j2cj0")
+
+[node name="NameRef" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BarName" type="Label" parent="NameRef"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_right = 16.5
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test
+"
+label_settings = SubResource("LabelSettings_j2cj0")
+horizontal_alignment = 1
+
+[node name="BarValue" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_oilaj")
+horizontal_alignment = 1
+vertical_alignment = 1

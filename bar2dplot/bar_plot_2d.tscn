@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://viiq73lgn0w"]
+
+[ext_resource type="Script" uid="uid://dtj6c46wsnoii" path="res://bar2dplot/bar_plot_2d.gd" id="1_0uihc"]
+[ext_resource type="PackedScene" uid="uid://dirv20ohydaib" path="res://bar2dplot/vertical_bar.tscn" id="2_35t3o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35t3o"]
+resource_local_to_scene = true
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7w5w"]
+resource_local_to_scene = true
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(1, 0, 0, 1)
+
+[node name="bar_plot_2d" type="Control" node_paths=PackedStringArray("vertical_bars")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0uihc")
+vertical_bars = NodePath("VBoxContainer/Body/VerticalBars")
+vb_scene = ExtResource("2_35t3o")
+bar_values = Array[float]([35.0, 43.0, 12.0, 17.0, 19.0, 48.0, 50.0, 1.0, 25.0])
+bar_names = Array[String](["A", "B", "C", "D", "E", "F", "G", "H", "I"])
+bar_fill_colors = Array[Color]([Color(0.860331, 0.537308, 0.777208, 1), Color(0.917625, 0.494243, 0.736251, 1), Color(0.351251, 0.274245, 0.224809, 1), Color(0.874134, 0.929511, 0.938116, 1), Color(0.955471, 0.493972, 0.394536, 1), Color(0.768541, 0.580121, 0.568055, 1), Color(0.671511, 0.241085, 0.524674, 1), Color(0.298077, 0.100267, 0.135192, 1), Color(0.816923, 0.763113, 0.980219, 1)])
+bar_border_colors = Array[Color]([Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 0, 1, 1), Color(0, 1, 0, 1), Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1)])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Body" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LeftMargin" type="Control" parent="VBoxContainer/Body"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="VerticalBars" type="HBoxContainer" parent="VBoxContainer/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="vertical_bar" parent="VBoxContainer/Body/VerticalBars" instance=ExtResource("2_35t3o")]
+layout_mode = 2
+background_style = SubResource("StyleBoxFlat_35t3o")
+fill_stye = SubResource("StyleBoxFlat_c7w5w")
+
+[node name="RigthMargin" type="Control" parent="VBoxContainer/Body"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Bottom" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
