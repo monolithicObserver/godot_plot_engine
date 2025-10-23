@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkxbnwohn3vv0"]
+
+[ext_resource type="Script" uid="uid://dyb2ggdxjau6p" path="res://compute_shader_test/compute_main.gd" id="1_jnm7l"]
+
+[node name="compute_main" type="Node"]
+script = ExtResource("1_jnm7l")

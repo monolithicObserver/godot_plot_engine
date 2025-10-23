@@ -20,7 +20,7 @@ void fragment() {
 	vec2 density = plot_rect.zw / plot_size;
 	vec2 plot_uv = vec2(UV.x,1.0-UV.y);
     vec2 plot_coord = plot_rect.xy + vec2(plot_rect.z * plot_uv.x, plot_rect.w * plot_uv.y);
-	
+
     // Distance to nearest vertical/horizontal grid line
     float dx = plot_coord.x - round(plot_coord.x/spacing_x) * spacing_x;
     float dy = plot_coord.y - round(plot_coord.y/spacing_y) * spacing_y;
@@ -34,9 +34,8 @@ void fragment() {
 	if (abs(plot_coord.x) < axis_width * density.x) {
 		COLOR = axis_color_y;
 	}
-	
+
 	if (abs(plot_coord.y) < axis_width * density.y) {
 		COLOR = axis_color_x;
 	}
 }
-
